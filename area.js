@@ -7,6 +7,7 @@ const width = 1000;
 const svg = d3.select('body').append('svg').attr('width', '100%').attr('height', '100%');
 // 0 <=> height and 360 <=> 0 
 const y = d3.scaleLinear().domain([0, Math.max(...data)]).range([height, 0]);
+const yAxis = d3.axisLeft(y).ticks(3).tickPadding(8).tickSize(8);
 
 curves.map((curve, index) => {
 
@@ -16,7 +17,9 @@ curves.map((curve, index) => {
     .y1((d, i) => y(d))
     .curve(curve);
 
-  const group = svg.append('g').attr('transform', 'translate(' + index * 250 + ',0)');
+  const group = svg.append('g').attr('transform', 'translate(' + (50 + (index * 280)) + ',50)');
+
+  group.append('g').attr('class', 'axis y').call(yAxis);
 
   group.append('path')
     .attr('stroke', 'pink')
